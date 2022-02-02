@@ -14,7 +14,12 @@ const CardSuccess = (Props) => {
     <>
       <Card
         border="success"
-        style={{ width: "18rem", marginBottom: "2%", marginTop: "2%" }}
+        style={{
+          width: "18rem",
+          marginBottom: "2%",
+          marginTop: "2%",
+          marginRight: "1%",
+        }}
       >
         <Card.Header style={{ backgroundColor: "white" }}>
           {Props.names[Props.index]}
@@ -22,7 +27,8 @@ const CardSuccess = (Props) => {
         <Card.Body>
           <Card.Title style={{ backgroundColor: "green" }}>Healthy</Card.Title>
           <Card.Text>
-          Hostname: {Props.response.value.hostname.slice(
+            Hostname:{" "}
+            {Props.response.value.hostname.slice(
               Props.names[Props.index].length + 1
             )}
             <br />

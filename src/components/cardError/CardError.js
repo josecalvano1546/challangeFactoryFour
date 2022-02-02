@@ -6,7 +6,12 @@ const CardError = (Props) => {
     <>
       <Card
         border="danger"
-        style={{ width: "18rem", marginBottom: "2%", marginTop: "2%" }}
+        style={{
+          width: "18rem",
+          marginBottom: "2%",
+          marginTop: "2%",
+          marginRight: "1%",
+        }}
       >
         <Card.Header style={{ backgroundColor: "white" }}>
           {Props.names[Props.index]}
