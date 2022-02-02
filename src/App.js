@@ -30,21 +30,26 @@ function App() {
     "workflows",
   ];
 
-  useEffect(() => {
-    setInterval(() => {
-      let requests = names.map((API_NAME) =>
-        fetch(`https://api.factoryfour.com/${API_NAME}/health/status`).then(
-          (res) => res.json()
-        )
-      );
-      Promise.allSettled(requests).then((responses) => {
-        // All request successful or not
-        const res = responses.map((response) => {
-          console.log(response.value);
-          return response;
-        });
-        setResponses(res);
+  const getApi = () => {
+    let requests = names.map((API_NAME) =>
+      fetch(`https://api.factoryfour.com/${API_NAME}/health/status`).then(
+        (res) => res.json()
+      )
+    );
+    Promise.allSettled(requests).then((responses) => {
+      // All request successful or not
+      const res = responses.map((response) => {
+        console.log(response.value);
+        return response;
       });
+      setResponses(res);
+    });
+  };
+
+  useEffect(() => {
+    getApi();
+    setInterval(() => {
+      getApi();
     }, 15000); //Time in ms (request the health status of each API every 15 seconds).
   }, []);
 

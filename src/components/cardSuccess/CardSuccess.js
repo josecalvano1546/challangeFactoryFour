@@ -27,10 +27,7 @@ const CardSuccess = (Props) => {
         <Card.Body>
           <Card.Title style={{ backgroundColor: "green" }}>Healthy</Card.Title>
           <Card.Text>
-            Hostname:{" "}
-            {Props.response.value.hostname.slice(
-              Props.names[Props.index].length + 1
-            )}
+            {Props.response.value.hostname}
             <br />
             {getDate(Props.response.value.time)}
           </Card.Text>
