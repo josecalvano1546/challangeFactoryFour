@@ -53,6 +53,29 @@ function App() {
     }, 15000); //Time in ms (request the health status of each API every 15 seconds).
   }, []);
 
+  const [userContext, setUserContext] = useState(null);
+  
+  useEffect(() => {
+    // Espera a que la página esté cargada y luego obtiene la signed request
+    window.Sfdc && window.Sfdc.canvas && window.Sfdc.canvas.client && window.Sfdc.canvas.client.autorun((args) => {
+      // La información de la signed request está disponible en args
+      const signedRequest = args.oauthToken;
+      const instanceUrl = args.instanceUrl;
+
+      // Puedes guardar estos valores en tu estado o localStorage para usarlos más adelante
+      setUserContext({
+        signedRequest,
+        instanceUrl
+      });
+
+      // Ahora puedes hacer llamadas a las APIs de Salesforce utilizando este token y la URL
+    });
+  }, []);
+
+  console.log('userContext -> ', userContext?.signedRequest);
+  console.log('instanceUrl -> ', userContext?.instanceUrl);
+
+
   return (
     <div className="App">
       <Header />
