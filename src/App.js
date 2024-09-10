@@ -72,6 +72,19 @@ function App() {
     });
   }, []);
 
+
+  // Función para obtener parámetros de la URL
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window?.location?.search);
+  return urlParams.get(param);
+}
+
+// Obtener el sessionId del parámetro de la URL
+const sessionId = getQueryParam('sessionId');
+
+// Mostrar el sessionId en la consola
+console.log('Session ID:', sessionId);
+
   console.log('userContext -> ', userContext?.signedRequest);
   console.log('instanceUrl -> ', userContext?.instanceUrl);
   console.log('window.Sfdc  -> ', window.Sfdc );
