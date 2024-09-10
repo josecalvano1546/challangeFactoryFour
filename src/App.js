@@ -74,6 +74,7 @@ function App() {
 
   console.log('userContext -> ', userContext?.signedRequest);
   console.log('instanceUrl -> ', userContext?.instanceUrl);
+  console.log('window.Sfdc  -> ', window.Sfdc );
 
 
   return (
