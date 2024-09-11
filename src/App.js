@@ -100,13 +100,15 @@ console.log('Session ID:', sessionId);
       if (!sessionId) return;
 
       try {
-        const response = await fetch('https://yourInstance.salesforce.com/services/data/v54.0/sobjects/Account', {
+        console.log('se pide la data')
+        const response = await fetch('https://empathetic-narwhal-ln8yzw-dev-ed.trailblaze.my.salesforce.com/services/data/v54.0/sobjects/Account', {
           headers: {
             'Authorization': `Bearer ${sessionId}`,
           },
         });
 
         if (!response.ok) {
+          console.log('error')
           throw new Error(`Error en la petición: ${response.statusText}`);
         }
 
@@ -118,6 +120,7 @@ console.log('Session ID:', sessionId);
       }
     };
 
+    console.log('se pidio tode ', sessionId)
     fetchSalesforceData();
   }, [sessionId]);
 
