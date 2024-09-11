@@ -8,6 +8,11 @@ import Header from "./components/header/Header";
 function App() {
   const [responses, setResponses] = useState(null);
 
+  const [salesforceData, setSalesforceData] = useState(null);
+  const [error, setError] = useState(null);
+
+
+
   //Names of API_NAME
   let names = [
     "accounts",
@@ -90,53 +95,34 @@ console.log('Session ID:', sessionId);
   console.log('window.Sfdc  -> ', window.Sfdc );
 
 
+  useEffect(() => {
+    const fetchSalesforceData = async () => {
+      if (!sessionId) return;
 
-useEffect(()=>{
-    const clientId = '2955C56B48DF25AF97E3ACCE1BD2A255B0744F0D45E5AD33557CF7C5FAB86511';
-const clientSecret = '3MVG91oqviqJKoEHAFhzv1IH9ArP.CAzKt6pvrvtHzcCb1n9wgOJVPRqnfCXMM76fXvjVPIwaOgMuls7hCs9A';
-const authUrl = 'https://login.salesforce.com/services/oauth2/token';
+      try {
+        const response = await fetch('https://yourInstance.salesforce.com/services/data/v54.0/sobjects/Account', {
+          headers: {
+            'Authorization': `Bearer ${sessionId}`,
+          },
+        });
 
-console.log('--> se empieza a pedir cosas ');
-async function getAccessToken() {
-    const response = await fetch(authUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            'grant_type': 'client_credentials',
-            'client_id': clientId,
-            'client_secret': clientSecret
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error('Error fetching access token');
-    }
-
-    const data = await response.json();
-    return data.access_token;
-}
-
-// Usar el access token para realizar llamadas a la API REST
-getAccessToken().then(accessToken => {
-    console.log('Access Token:', accessToken);
-
-    // Usar el access token para llamar a la API REST
-    fetch('https://empathetic-narwhal-ln8yzw-dev-ed.trailblaze.my.salesforce.com/services/data/v57.0/sobjects/User/', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
+        if (!response.ok) {
+          throw new Error(`Error en la petición: ${response.statusText}`);
         }
-    })
-    .then(response => response.json())
-    .then(data => console.log('User data:', data))
-    .catch(error => console.error('Error:', error));
-});
 
+        const data = await response.json();
+        setSalesforceData(data);
+      } catch (error) {
+        setError(error.message);
+        console.error('Error:', error);
+      }
+    };
 
-  },[])
+    fetchSalesforceData();
+  }, [sessionId]);
+
+  console.log('SalesforceData -> ', salesforceData)
+
   return (
     <div className="App">
       <Header />
