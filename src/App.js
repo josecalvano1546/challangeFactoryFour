@@ -122,8 +122,6 @@ console.log('Record ID:', recordId);
     fetchSalesforceData();
   }, [sessionId]);
 
-  console.log('SalesforceData -> ', salesforceData)
-
   return (
     <div className="App">
       <Header />
