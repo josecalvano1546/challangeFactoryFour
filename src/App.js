@@ -86,13 +86,11 @@ function getQueryParam(param) {
 
 // Obtener el sessionId del parámetro de la URL
 const sessionId = getQueryParam('sessionId');
+const recordId = getQueryParam('recordId');
 
 // Mostrar el sessionId en la consola
 console.log('Session ID:', sessionId);
-
-  console.log('userContext -> ', userContext?.signedRequest);
-  console.log('instanceUrl -> ', userContext?.instanceUrl);
-  console.log('window.Sfdc  -> ', window.Sfdc );
+console.log('Record ID:', recordId);
 
 
   useEffect(() => {
